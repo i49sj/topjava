@@ -15,9 +15,14 @@
 
 ### <a href="http://javaops.ru/story.html">Наши истории (делимся опытом и успехом)</a>
 
-### Тесты онлайн:
+### Тесты/задачи онлайн:
 - <a href="https://codility.com/programmers/lessons">Codility lesson tests</a>
 - <a href="http://www.quizful.net/test">Quizful- тесты онлайн</a>
+- <a href="https://www.tracy.k12.ca.us/sites/clunetta/Java/practice/practice.htm">Multiple-Choice Questions in Java</a>
+- <a href="https://leetcode.com/">LeetCode Online Judge</a>
+- <a href="http://www.spoj.com/">Sphere online judge</a>
+- <a href="https://codility.com/programmers/lessons/">Codility programmers lessons</a>
+- <a href="https://www.hackerrank.com/">Hackerrank practice coding</a>
 
 ### Интервью:
 - <a href="https://www.youtube.com/watch?v=Deb5wMHjBHY">Михаил Портнов. Собеседование на работу: как продать себя грамотно</a>
