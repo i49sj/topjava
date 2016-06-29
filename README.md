@@ -106,7 +106,6 @@ Optional
 - <a href="https://habrahabr.ru/post/132241/">Маленькие хитрости Java</a>
 -  <a href="http://devcolibri.com/4284">Как создать Servlet? Полное руководство.</a>
 -  <a href="https://github.com/winterbe/java8-tutorial">A Guide to Java 8</a>
--  <a href="http://javaxblog.ru/article/java-junit-1/">Java JUnit</a>
 
 #### JDBC, SQL
 -  <a href="https://www.youtube.com/playlist?list=PLIU76b8Cjem5qdMQLXiIwGLTLyUHkTqi2">Уроки по JDBC</a>
