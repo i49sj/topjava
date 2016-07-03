@@ -111,10 +111,12 @@ Optional
 -  <a href="https://www.youtube.com/playlist?list=PLIU76b8Cjem5qdMQLXiIwGLTLyUHkTqi2">Уроки по JDBC</a>
 -  <a href="https://www.codecademy.com/learn/learn-sql">Learn SQL</a>
 -  <a href="http://campus.codeschool.com/courses/try-sql/contents">Try SQL</a>
+-  <a href="https://stepic.org/course/Введение-в-базы-данных-551">Курс "Введение в базы данных"</a>
 
 #### Разное
 -  <a href="http://jeeconf.com/materials/intellij-idea/">Эффективная работа с кодом в IntelliJ IDEA</a>
 -  <a href="http://www.quizful.net/test">Quizful- тесты онлайн</a>
+-  <a href="https://stepic.org/course/Введение-в-Linux-73">Введение в Linux</a>
 
 #### Книги
 -  <a href="http://www.ozon.ru/context/detail/id/24828676/">Джошуа Блох: Java. Эффективное программирование. Второе издание</a>
