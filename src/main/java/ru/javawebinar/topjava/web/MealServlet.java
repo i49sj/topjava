@@ -2,10 +2,13 @@ package ru.javawebinar.topjava.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.mock.InMemoryMealRepositoryImpl;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
+import ru.javawebinar.topjava.util.TimeUtil;
+import ru.javawebinar.topjava.web.meal.MealRestController;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -22,6 +25,7 @@ import java.util.Objects;
  */
 public class MealServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(MealServlet.class);
+    private MealRestController mealController;
 
     private MealRepository repository;
 
@@ -48,24 +52,52 @@ public class MealServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if (action == null) {
+        Integer userId = (Integer)request.getSession().getAttribute("userId");
+        if(userId == null){
+            response.sendRedirect("./");
+            return;
+        }
+
+        if (StringUtils.isEmpty(action)) {
             LOG.info("getAll");
             request.setAttribute("mealList",
-                    MealsUtil.getWithExceeded(repository.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY));
-            request.getRequestDispatcher("/mealList.jsp").forward(request, response);
+                    mealController.getWithFilter(userId,
+                            TimeUtil.parseDate((String) request.getSession().getAttribute("fromDate")),
+                            TimeUtil.parseDate((String) request.getSession().getAttribute("toDate")),
+                            TimeUtil.parseTime((String) request.getSession().getAttribute("fromTime")),
+                            TimeUtil.parseTime((String) request.getSession().getAttribute("toTime"))));
+
+            request.getRequestDispatcher("mealList.jsp").forward(request, response);
 
         } else if ("delete".equals(action)) {
-            int id = getId(request);
-            LOG.info("Delete {}", id);
-            repository.delete(id);
-            response.sendRedirect("meals");
+            Integer mealId = null;
 
+            try {
+                mealId = getId(request);
+                LOG.info("Delete {}", mealId);
+                mealController.delete(mealId, userId);
+                response.sendRedirect("meals");
+
+            } catch (Exception e) {
+                LOG.error(String.format("Could not perform deleting - a meal with id %d is not found!", mealId));
+                request.setAttribute("message", "Ups! A meal is not found!");
+                request.getRequestDispatcher("info.jsp").forward(request, response);
+
+            }
         } else if ("create".equals(action) || "update".equals(action)) {
-            final Meal meal = action.equals("create") ?
-                    new Meal(LocalDateTime.now().withNano(0).withSecond(0), "", 1000) :
-                    repository.get(getId(request));
-            request.setAttribute("meal", meal);
-            request.getRequestDispatcher("mealEdit.jsp").forward(request, response);
+
+            try {
+                Meal meal = action.equals("create") ?
+                        new Meal(LocalDateTime.now().withNano(0).withSecond(0), "", 1000) :
+                        mealController.get(getId(request), userId);
+                request.setAttribute("meal", meal);
+                request.getRequestDispatcher("mealEdit.jsp").forward(request, response);
+
+            } catch (Exception e) {
+                LOG.error("Could not perform updating - a meal is not found!");
+                request.setAttribute("message", "Ups! A meal is not found!");
+                request.getRequestDispatcher("info.jsp").forward(request, response);
+            }
         }
     }
 
